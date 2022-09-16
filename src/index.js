@@ -4,19 +4,31 @@
 class User {
   constructor() {
     // · subscriptions: підписки користувача.
-    this.subscriptions = {};
+    this.subscriptions = [];
   }
   subscribe(streamingService) {
+    if (this.subscriptions.includes(streamingService)) {
+      console.log(`You sub on ${streamingService}`);
+      return;
+    }
+    this.subscriptions.push(streamingService);
     // · subscribe(streamingService): підписує користувача на стрімінговий сервіс.
     // Повертає об’єкт Subscription.
-    return this.subscriptions;
+    this.subscription = this.subscriptions.reduce((acc, el) => {
+      acc[el] = true;
+      return acc;
+    }, {});
+    return this.subscription;
   }
 }
 
-// Cутність Subscription.
+const user1 = new User();
+user1.subscribe('youtube');
+user1.subscribe('facebook');
+user1.subscribe('facebook');
+
 // Aтрибути:
 // · streamingService: сервіс, на який оформлена підписка.
-// Методи:
 
 class Subscription {
   constructor() {
